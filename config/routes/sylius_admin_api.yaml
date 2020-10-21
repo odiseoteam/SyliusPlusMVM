@@ -1,0 +1,7 @@
+sylius_admin_api:
+    resource: "@SyliusAdminApiBundle/Resources/config/routing.yml"
+    prefix: /api
+
+sylius_plus_admin_api:
+    resource: "@SyliusPlusPlugin/Resources/config/api_routing.yaml"
+    prefix: /api/v1

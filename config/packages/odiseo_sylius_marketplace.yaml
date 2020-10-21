@@ -1,0 +1,3 @@
+odiseo_sylius_marketplace:
+    vendor_shipping_enabled: true
+    vendor_promotion_enabled: true

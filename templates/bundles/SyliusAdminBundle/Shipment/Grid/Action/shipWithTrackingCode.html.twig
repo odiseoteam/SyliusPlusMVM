@@ -1,0 +1,3 @@
+{% if sm_can(data, 'ship', 'sylius_shipment') %}
+    {{ render(path('sylius_plus_admin_partial_shipment_ship', {'orderId': data.order.id, 'id': data.id})) }}
+{% endif %}

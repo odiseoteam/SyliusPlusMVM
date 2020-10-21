@@ -1,0 +1,62 @@
+<div class="ui tab" data-tab="inventory">
+    <h3 class="ui dividing header">{{ 'sylius.ui.inventory'|trans }}</h3>
+
+    <div class="field">
+        <div class="ui toggle checkbox">
+            {% set tracked = form.vars.data.tracked %}
+            {{ form_widget(form.tracked, {'attr': {'class': 'hidden', 'data-label': (tracked ? 'sylius_plus.ui.enable_inventory_tracking'|trans : 'sylius_plus.ui.disable_inventory_tracking'|trans) }}) }}
+            <label for="{{ form.tracked.vars.id }}">
+                {{ (tracked ? 'sylius_plus.ui.disable_inventory_tracking'|trans : 'sylius_plus.ui.enable_inventory_tracking'|trans) }}
+            </label>
+        </div>
+    </div>
+
+    {{ form_row(form.version) }}
+
+    {% for child in form.inventorySourceStocks %}
+        <div class="ui segment inventory-source">
+            {{ form_label(child) }}
+            <br><br>
+            <div class="inline fields">
+                <div class="field">
+                    {{ form_label(child.onHand) }}
+                    {{ form_widget(child.onHand) }}
+                </div>
+                {% if child.onHold.vars.value != '' %}
+                    <div class="field as-label">
+                        <i class="cube icon"></i>
+                        {{ form_label(child.onHold) }}
+                        {{ form_widget(child.onHold) }}
+                    </div>
+                {% endif %}
+            </div>
+            {{ form_errors(child.onHand) }}
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .field.as-label {
+        background: #21ba45 !important;
+        border-radius: 5px;
+        padding: 5px 0 5px 10px !important;
+        color: #fff !important;
+    }
+
+    .field.as-label label {
+        color: #fff !important;
+    }
+
+    .field.as-label input {
+        background: none !important;
+        color: #fff !important;
+        border: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        line-height: inherit !important;
+        vertical-align: top !important;
+        opacity: 1 !important;
+        width: 70px !important;
+        text-align: center !important;
+    }
+</style>
