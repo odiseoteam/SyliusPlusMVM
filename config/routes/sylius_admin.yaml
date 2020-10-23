@@ -5,3 +5,8 @@ sylius_admin:
 sylius_plus_admin:
     resource: "@SyliusPlusPlugin/Resources/config/admin_routing.yaml"
     prefix: /admin
+
+sylius_admin_dashboard:
+    path: /admin
+    defaults:
+        _controller: odiseo_sylius_marketplace_plugin.controller.admin.dashboard::indexAction

@@ -15,6 +15,12 @@ imports:
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
 
+odiseo_sylius_rbac:
+    custom_sections:
+        administration:
+            - sylius_admin_admin_user
+            - sylius_plus_admin_role
+
 sylius_addressing:
     resources:
         address:

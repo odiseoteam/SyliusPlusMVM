@@ -26,10 +26,39 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{Entity,Migrations,Tests,Kernel.php}'
+        exclude: '../src/{Entity,Factory,Fixture,Migrations,Tests,Kernel.php}'
 
     # Controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    sylius.fixture.admin_user:
+        class: App\Fixture\AdminUserFixture
+        arguments:
+            - '@sylius.manager.admin_user'
+            - '@sylius.fixture.example_factory.admin_user'
+        tags:
+            - { name: sylius_fixtures.fixture }
+
+    sylius.fixture.example_factory.admin_user:
+        class: App\Factory\AdminUserExampleFactory
+        arguments:
+            - '@sylius.factory.admin_user'
+            - '@sylius.repository.channel'
+            - '%locale%'
+            - '@file_locator'
+            - '@sylius.image_uploader'
+            - '@sylius.repository.channel'
+            - '@sylius_plus.repository.role'
+
+    app.sylius_rbac.access.checker.hardcoded_route_name_checker:
+        class: App\Access\Checker\HardcodedRouteNameChecker
+        decorates: odiseo_sylius_marketplace_plugin.sylius_rbac.access.checker.hardcoded_route_name_checker
+
+    app.sylius_rbac.access.checker.administrator_access_checker:
+        class: App\Access\Checker\AdministratorAccessChecker
+        decorates: odiseo_sylius_marketplace_plugin.sylius_rbac.access.checker.administrator_access_checker
+        arguments:
+            - '@app.sylius_rbac.access.checker.administrator_access_checker.inner'
