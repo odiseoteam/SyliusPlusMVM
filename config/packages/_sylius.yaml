@@ -15,6 +15,11 @@ imports:
 parameters:
     sylius_core.public_dir: '%kernel.project_dir%/public'
 
+sylius_mailer:
+    sender:
+        name: Sylius Plus MVM
+        address: team@odiseo.com.ar
+
 odiseo_sylius_rbac:
     custom_sections:
         administration:
